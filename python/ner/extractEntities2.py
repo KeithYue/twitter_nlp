@@ -132,8 +132,8 @@ while line:
 
     if posTagger:
         pos = posTagger.TagSentence(words)
-        #pos = [p.split(':')[0] for p in pos]  # remove weights   
-        pos = [re.sub(r':[^:]*$', '', p) for p in pos]  # remove weights   
+        #pos = [p.split(':')[0] for p in pos]  # remove weights
+        pos = [re.sub(r':[^:]*$', '', p) for p in pos]  # remove weights
     else:
         pos = None
 
@@ -141,7 +141,7 @@ while line:
     if posTagger and chunkTagger:
         word_pos = zip(words, [p.split(':')[0] for p in pos])
         chunk = chunkTagger.TagSentence(word_pos)
-        chunk = [c.split(':')[0] for c in chunk]  # remove weights      
+        chunk = [c.split(':')[0] for c in chunk]  # remove weights
     else:
         chunk = None
 
@@ -159,7 +159,7 @@ while line:
             features.append("QUOTED")
         seq_features.append(" ".join(features))
     ner.stdin.write(("\t".join(seq_features) + "\n").encode('utf8'))
-        
+
     for i in range(len(words)):
         tags.append(ner.stdout.readline().rstrip('\n').strip(' '))
 
@@ -217,8 +217,8 @@ while line:
 #    if pos:
 #        sys.stdout.write((" ".join(["%s/%s/%s" % (words[x], tags[x], pos[x]) for x in range(len(words))]) + "\n").encode('utf8'))
 #    else:
-#        sys.stdout.write((" ".join(["%s/%s" % (words[x], tags[x]) for x in range(len(words))]) + "\n").encode('utf8'))        
-    
+#        sys.stdout.write((" ".join(["%s/%s" % (words[x], tags[x]) for x in range(len(words))]) + "\n").encode('utf8'))
+
     sys.stdout.flush()
 
     #seems like there is a memory leak comming from mallet, so just restart it every 1,000 tweets or so
@@ -233,9 +233,12 @@ while line:
         ner.wait()
         ner = GetNer(ner_model)
     nLines += 1
-    
+
     line = sys.stdin.readline().strip()
-    line = line.encode('utf-8')
+    try:
+        line = line.encode('utf-8')
+    except:
+        pass
 
 end_time = time.time()
 

@@ -9,9 +9,14 @@ def ner_extract(tweet):
     tweet: tweet str
     '''
 
-    bio_str = subprocess.check_output(['cat %s |python ./python/ner/extractEntities2.py' % (tweet,),
-        '--classify'])
-    return bio_str
+    # subprocess.call(['export', 'TWITTER_NLP=./'], shell=True)
+    ner_extration_popen = subprocess.Popen(args="echo '%s' | python $TWITTER_NLP/python/ner/extractEntities2.py --classify" % tweet, shell=True, stdout = subprocess.PIPE, stderr=subprocess.PIPE)
+
+    bio_str, return_code = ner_extration_popen.communicate()
+    print return_code
+
+    return bio_parse(bio_str)
+
 
 def bio_parse(sent):
     ''' Tokenize a sentence of conll 2002 format, return list of (entity, type)
@@ -39,6 +44,10 @@ def bio_parse(sent):
         else:
             # The type is I
             current_ne.append((word, ne_type))
+    # add the last ne to netags
+    if current_ne != []:
+        ne_tags.append(current_ne)
+    # print ne_tags
 
     # get the chunks and their tags
     nes = []
@@ -52,7 +61,8 @@ def bio_parse(sent):
 
 
 if __name__ == '__main__':
-    s = 'Spotted/O :/O Kanye/B-person West/I-person Celebrates/O LAMB/B-product With/O Gwen/B-person Stefani/I-person :/O New/B-other York/I-other Fashion/I-other Week/I-other is/O coming/O to/O a/O close/O ,/O but/O not/O before/O .../O http://bit.ly/cSyZUi/O'
+    s = '''I/O posted/O 5/O photos/O on/O Facebook/B-company in/O the/O album/O "/O VersusSport/B-facility Event/I-facility -/O Carmelo/B-person vs/O ./O Kobe/O ":/O http://bit.ly/fw9wm/O'''
 
-    print ner_extract(s)
+    print bio_parse(s)
+
 
