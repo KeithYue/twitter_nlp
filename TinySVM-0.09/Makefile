@@ -21,7 +21,7 @@ SHELL = /bin/sh
 
 srcdir = .
 top_srcdir = .
-prefix = /csproject/wil1/wangyue/tweets_conceptualization/src/twitter_nlp/TinySVM-0.09/../
+prefix = /home/ywangby/data/workspace/tweets_conceptualization/src/twitter_nlp/TinySVM-0.09/../
 exec_prefix = ${prefix}
 
 bindir = ${exec_prefix}/bin

@@ -29,4 +29,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/csproject/wil1/wangyue/tweets_conceptualization/src/twitter_nlp/TinySVM-0.09/..//lib'
+libdir='/home/ywangby/data/workspace/tweets_conceptualization/src/twitter_nlp/TinySVM-0.09/..//lib'

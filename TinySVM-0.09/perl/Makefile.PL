@@ -5,7 +5,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     'CC'		=> 'c++',
     'NAME'		=> 'TinySVM',
-    'INC'		=> '-I/csproject/wil1/wangyue/tweets_conceptualization/src/twitter_nlp/TinySVM-0.09/..//include',
-    'LIBS'        	=> '-L/csproject/wil1/wangyue/tweets_conceptualization/src/twitter_nlp/TinySVM-0.09/..//lib -ltinysvm',
+    'INC'		=> '-I/home/ywangby/data/workspace/tweets_conceptualization/src/twitter_nlp/TinySVM-0.09/..//include',
+    'LIBS'        	=> '-L/home/ywangby/data/workspace/tweets_conceptualization/src/twitter_nlp/TinySVM-0.09/..//lib -ltinysvm',
     'OBJECT'            => 'TinySVM_wrap.o'
 );
